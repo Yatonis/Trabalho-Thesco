@@ -13,9 +13,9 @@ struct Animal{
     int especie;
     char agressivo;
     
-}
+};
 struct serviço{
     int identificador;
     int serviço;
     char pagamento;
-}
+};
