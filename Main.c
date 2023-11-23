@@ -24,12 +24,18 @@ struct serviço{
     int serviço;
     char pagamento;
 };
- in validarNome (char nome[]){
- if (strlen (nome) < 4 ){
+int validarNome (char nome[]){
+if (strlen (nome) < 4 ){
     return 0;
 }
-if(nm[0] == ''){
+if(nome[0] == ' '){
     return 0;
 }
-    return 1;
+for (i = 0; i < 50; i++){
+    if(nome[i] < 65 || nome[i] > 122 || nome[i] > 90  && nome[i] < 97 ){
+        return 0;
+        }
+        
+    }
+return 1;
 }
