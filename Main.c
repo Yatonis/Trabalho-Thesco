@@ -24,3 +24,12 @@ struct serviço{
     int serviço;
     char pagamento;
 };
+ in validarNome (char nome[]){
+ if (strlen (nome) < 4 ){
+    return 0;
+}
+if(nm[0] == ''){
+    return 0;
+}
+    return 1;
+}
