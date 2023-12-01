@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+int i = 0 , aux = 0;
 struct Data{
     int dia;
     int mes;
@@ -24,6 +25,7 @@ struct serviço{
     int serviço;
     char pagamento;
 };
+struct Cliente individuo;
 //Validação de nome
 int validarNome (char nome[]){
 if (strlen (nome) < 4 ){
@@ -59,4 +61,21 @@ for (i = 0; i < 20; i++){
     }
 }
 return 1;
+}
+//Função para cadastrar clientes
+void cadastrarCliente(struct Cliente indiviuo){
+    do{
+        printf("\nDigite o seu nome: \n");
+        fgets (individuo.nome, 50 , stdin);
+        individuo.nome[strlen(individuo.nome) - 1] = '\0';
+        aux = validarNome (individuo.nome);
+        setbuf(stdin,NULL);
+    }while (aux == 0);
+    do{
+        printf("\nDigite o seu número de telefone: \n");
+        fgets (individuo.telefone, 15, stdin);
+        individuo.telefone[strlen(individuo.telefone) - 1] = '\0';
+        aux = validarNumero (individuo.telefone);
+        setbuf(stdin,NULL);
+    }while (aux == 0);
 }
