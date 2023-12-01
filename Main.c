@@ -39,3 +39,21 @@ for (i = 0; i < 50; i++){
     }
 return 1;
 }
+// Validação do número de telefone, obs: tirar os printf depois
+int validarNumero (char numero[]){
+    if (numero[0] != '0'){
+        printf ("errado1");
+        return 0;
+    }
+if (strlen (numero) < 11 || strlen (numero) > 12 ){
+        printf ("errado2");
+    return 0;
+}
+for (i = 0; i < 20; i++){
+    if (numero[i] < '0' && numero[i] != '\0' && numero[i] != '\n' || numero[i] > '9' && numero[i] != '\0' && numero[i] != '\n'){
+        printf ("errado3");
+        return 0;
+    }
+}
+return 1;
+}
