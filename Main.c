@@ -60,21 +60,3 @@ for (i = 0; i < 20; i++){
 }
 return 1;
 }
-//Validação de nome
-int validarNome (char nome[]){
-if (strlen (nome) < 4 ){
-    return 0;
-}
-if(nome[0] == ' '){
-    return 0;
-}
-for (i = 0; i < 50; i++){
-    if(nome[i] < 'a' && nome[i] != '\0' || nome[i] > 'z' && nome[i] != '\0' ){
-        if(nome[i] < 'A' && nome[i] != '\0' || nome[i] > 'Z' && nome[i] != '\0'){
-            return 0;  
-        }
-        }
-        
-    }
-return 1;
-}
