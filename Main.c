@@ -11,7 +11,7 @@ struct Cliente{
     char telefone[15];
 };
 struct Animal{
-    struct Cliente cliente;
+    struct Cliente dono;
     char nomeanimal[50];
     int especie;
     struct Data dataanimal;
