@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-int i = 0 , aux = 0, i2 = 0, totalagressivo = 0,  tamanhonomeanimal,tamanhonome,tamanhotelefone;
-int menu = 0, quantpessoa = 0, quantanimal = 0;
+int i = 0 , aux = 0, i2 = 0, totalagressivo = 3,  tamanhonomeanimal,tamanhonome,tamanhotelefone;
+int menu = 0, quantpessoa = 3, quantanimal = 5, petsporcliente = 0;
 char temp[50], continuar[4] , nomepet[50], nomecliente[50];
 struct Data{
     int dia;
@@ -18,7 +18,7 @@ struct Animal{
     char nomeanimal[50];
     int especie;
     struct Data dataanimal;
-    char agressivo;
+    char agressivo[4];
     
 };
 struct serviço{
@@ -28,8 +28,43 @@ struct serviço{
     int serviço;
     char pagamento;
 };
+//Declaração das structs
 struct Cliente individuo[100];
 struct Animal animal[100];
+//Função para declarar clientes e animais já no programa:
+void clientesjaCadastrados(void){
+    strcpy(individuo[0].nome , "Gabriel\0");
+    strcpy(individuo[1].nome , "Luiz Carlos\0");
+    strcpy(individuo[2].nome , "Ana Beatriz\0");
+    strcpy(individuo[0].telefone , "01234567891\0");
+    strcpy(individuo[1].telefone , "04333470986\0");
+    strcpy(individuo[2].telefone , "04399223344\0");
+    strcpy(animal[0].dono.nome , "Gabriel\0");
+    strcpy(animal[1].dono.nome , "Luiz Carlos\0");
+    strcpy(animal[2].dono.nome , "Ana Beatriz\0");
+    strcpy(animal[3].dono.nome , "Gabriel\0");
+    strcpy(animal[4].dono.nome , "Luiz Carlos\0");
+    strcpy(animal[0].dono.telefone , "01234567891\0");
+    strcpy(animal[1].dono.telefone , "04333470986\0");
+    strcpy(animal[2].dono.telefone , "04399223344\0");
+    strcpy(animal[3].dono.telefone , "01234567891\0");
+    strcpy(animal[4].dono.telefone , "04333470986\0");
+    strcpy(animal[0].nomeanimal , "Momo\0");
+    strcpy(animal[1].nomeanimal , "Rocky\0");
+    strcpy(animal[2].nomeanimal , "Lipe\0");
+    strcpy(animal[3].nomeanimal , "Louro jose\0");
+    strcpy(animal[4].nomeanimal , "Montanha\0");
+    animal[0].especie = 1;
+    animal[1].especie = 1;
+    animal[2].especie = 4;
+    animal[3].especie = 3;
+    animal[4].especie = 2;
+    strcpy(animal[0].agressivo , "N\0");
+    strcpy(animal[1].agressivo , "S\0");
+    strcpy(animal[2].agressivo , "S\0");
+    strcpy(animal[3].agressivo , "S\0");
+    strcpy(animal[4].agressivo , "N\0");
+}
 //Validação de nome
 int validarNome (char nome[]){
     if (nome[0] >= 'a' && nome[0] <= 'z'){
@@ -73,7 +108,7 @@ for (i = 0; i < 20; i++){
 return 1;
 }
 //Função para cadastrar clientes. Para teste por enquanto apenas utilizando indivduo[0]
-void cadastrarCliente(struct Cliente indiviuo){
+void cadastrarCliente(struct Cliente indiviuo[100]){
     do{
         printf("\nDigite o seu nome: \n");
         setbuf(stdin,NULL);
@@ -93,20 +128,20 @@ void cadastrarCliente(struct Cliente indiviuo){
     }while (aux == 0);
 }
 //Função para cadastrar animais
-void cadastrarAnimal (struct Animal animal){
+void cadastrarAnimal (struct Animal animal[quantanimal]){
     printf("\nDigite o nome do proprietário do animal que fez o cadastro no site: \n");
     for (i = 0; i < 100; i++){
         do{
             setbuf(stdin,NULL);
-            fgets (animal.dono.nome, 50 , stdin);
-            animal.dono.nome[strlen(animal.dono.nome) - 1] = '\0';
+            fgets (animal[quantanimal].dono.nome, 50 , stdin);
+            animal[quantanimal].dono.nome[strlen(animal[quantanimal].dono.nome) - 1] = '\0';
             setbuf(stdin,NULL);
-            aux = validarNome (animal.dono.nome);
+            aux = validarNome (animal[quantanimal].dono.nome);
         }while (aux == 0);
         for (i2 = 0; i2 < 100; i2++){
-            if (strcmp (animal.dono.nome , individuo[i2].nome) == 0){
-                strcpy(animal.dono.nome , individuo[i2].nome);
-                strcpy(animal.dono.telefone , individuo[i2].telefone);
+            if (strcmp (animal[quantanimal].dono.nome , individuo[i2].nome) == 0){
+                strcpy(animal[quantanimal].dono.nome , individuo[i2].nome);
+                strcpy(animal[quantanimal].dono.telefone , individuo[i2].telefone);
                 i2 = 1;
                 break;
             }
@@ -119,16 +154,16 @@ void cadastrarAnimal (struct Animal animal){
     printf ("\nDigite o nome do seu animal de estimação:\n");
     do{
         setbuf(stdin,NULL);
-        fgets (animal.nomeanimal, 50 , stdin);
-        animal.nomeanimal[strlen(animal.nomeanimal) - 1] = '\0';
-        aux = validarNome (animal.nomeanimal);
+        fgets (animal[quantanimal].nomeanimal, 50 , stdin);
+        animal[quantanimal].nomeanimal[strlen(animal[quantanimal].nomeanimal) - 1] = '\0';
+        aux = validarNome (animal[quantanimal].nomeanimal);
         setbuf(stdin,NULL);
     }while (aux == 0);
     printf("\nQual é a espécie de seu animal de estimação?\n");
     printf("Digite: \n1 - Para cachorro \n2 - Para gato \n3 - Para pássaro \n4 - Para outros\n");
     for (;1;){
-        scanf ("%d", &animal.especie);
-        if (animal.especie == 1 || animal.especie == 2 || animal.especie == 3 || animal.especie == 4 ){
+        scanf ("%d", &animal[quantanimal].especie);
+        if (animal[quantanimal].especie == 1 || animal[quantanimal].especie == 2 || animal[quantanimal].especie == 3 || animal[quantanimal].especie == 4 ){
             break;
         }
         printf ("\nVocê digitou um caracter não correspondente. Digite novamente o número que corresponde a espécie de seu animal\n");
@@ -136,12 +171,14 @@ void cadastrarAnimal (struct Animal animal){
     printf("\nO seu animal é agressivo?\n");
     printf("Digite:\n S - Para Sim\n N - Para Não\n");
     for (;1;){
-        scanf (" %c",&animal.agressivo);
-        if (animal.agressivo == 'S' || animal.agressivo == 's' ){
+        setbuf(stdin , NULL);
+        fgets(animal[quantanimal].agressivo, 4 , stdin);
+        setbuf(stdin , NULL);
+        if (animal[quantanimal].agressivo[0] == 'S' || animal[quantanimal].agressivo[0] == 's' ){
             totalagressivo = totalagressivo + 1;
             break;
         }
-        if ( animal.agressivo == 'N' || animal.agressivo == 'n' ){
+        if ( animal[quantanimal].agressivo[0] == 'N' || animal[quantanimal].agressivo[0] == 'n' ){
             break;
         }
         printf ("\nVocê digitou um caracter não correspondente. Digite novamente: 'S' para Sim ou 'N' para Não\n");
@@ -172,10 +209,10 @@ void buscarPet(void){
                 if(animal[i].especie == 4){
                 printf("Espécie cadastrada: Outro\n");
                 }
-                if(animal[i].agressivo == 'S' || animal[i].agressivo == 's' ){
+                if(animal[i].agressivo[0] == 'S' || animal[i].agressivo[0] == 's' ){
                     printf("Animal agressivo: Sim\n");
                 }
-                if ( animal[i].agressivo == 'N' || animal[i].agressivo == 'n' ){
+                if ( animal[i].agressivo[0] == 'N' || animal[i].agressivo[0] == 'n' ){
                 printf("Animal agressivo: Não\n");
                 }
             }
@@ -197,38 +234,40 @@ void buscarCliente(void){
         aux = validarNome (nomecliente);
         for (i = 0; i < 100 ; i++){
             if (strcmp (nomecliente, individuo[i].nome) == 0){
-                printf("\nNome: %s\nNúmero de telefone: %s\nNome de seu pet: %s\n",individuo[i].nome, individuo[i].telefone, animal[i].nomeanimal);
-                
+                printf("\nNome: %s\nNúmero de telefone: %s\nNome de seu pet(s): ",individuo[i].nome, individuo[i].telefone);
+            }
+            if (strcmp (nomecliente, animal[i].dono.nome) == 0){
+                printf ("%s ; ", animal[i].nomeanimal);
             }
         }
-        printf ("Digite '0' para deixar de procurar:\n");
+        printf ("\nDigite '0' para deixar de procurar:\n");
         fgets(continuar, 4 , stdin);
         setbuf(stdin,NULL);
     }while(continuar[0] != '0');
 }
 //Função para listar em ordem alfabética
 void listarPet(void){
-    printf ("\nLembre-se, a primeira letra de qualquer nome está em maiúsculo\n");
+    printf ("                               (Lembre-se, a primeira letra de qualquer nome está em maiúsculo)\n\n");
     for(i = 0; i < quantanimal; i++){
         for(i2 = i + 1; i2 < quantanimal; i2++){
-            if (animal[i].nomeanimal[0] < animal[i2].nomeanimal[0] ){
+            if (animal[i].nomeanimal[0] > animal[i2].nomeanimal[0] ){
                 strcpy (temp, animal[i].nomeanimal);
                 strcpy (animal[i].nomeanimal, animal[i2].nomeanimal);
                 strcpy (animal[i2].nomeanimal, temp);
             }
         }
     }
-    printf("|               Nome do animal               |                Nome do dono                |            Número de telefone            |\n");
-    tamanhonomeanimal = strlen(animal[i].nomeanimal);
-    tamanhonome = strlen(animal[i].dono.nome);
-    tamanhotelefone = strlen(animal[i].dono.telefone);
+    printf("|               Nome do animal               |                Nome do dono                |             Número de telefone             |\n");
     for(i = 0; i < 100; i++){
+        tamanhonomeanimal = strlen(animal[i].nomeanimal);
+        tamanhonome = strlen(animal[i].dono.nome);
+        tamanhotelefone = strlen(animal[i].dono.telefone);
         printf("|");
         for(i2 = 0; i2 < (44 - tamanhonomeanimal) / 2; i2++){
             printf(" ");
         }
         printf ("%s",animal[i].nomeanimal);
-        for(i2 = 0; i2 < (44 - tamanhonomeanimal) / 2; i2++){
+        for(i2 = 0; i2 < (45 - tamanhonomeanimal) / 2; i2++){
             printf(" ");
         }
         printf("|");
@@ -236,7 +275,7 @@ void listarPet(void){
             printf(" ");
         }
         printf ("%s",animal[i].dono.nome);
-        for(i2 = 0; i2 < (44 - tamanhonome) / 2; i2++){
+        for(i2 = 0; i2 < (45 - tamanhonome) / 2; i2++){
         printf(" ");
         }
         printf("|");
@@ -244,7 +283,7 @@ void listarPet(void){
             printf(" ");
         }
         printf("%s", animal[i].dono.telefone);
-        for(i2 = 0; i2 < (43 - tamanhotelefone) / 2; i2++){
+        for(i2 = 0; i2 < (45 - tamanhotelefone) / 2; i2++){
             printf(" ");
         }
         printf("|\n");
@@ -252,11 +291,10 @@ void listarPet(void){
 }
 int main()
 {
-    // dps colocar if para escolher o indivíduo. Por enquanto para teste só utilizando individuo[0] e animal[0]
+    clientesjaCadastrados();
     do{
         do{
             printf ("\n--------------MENU--------------\n");
-            printf("%s\n",animal[0].dono.nome);
             printf ("1: Cadastrar cliente\n");
             printf ("2: Cadastrar animal de estimação\n");
             printf ("3: Buscar cliente por nome\n");
@@ -270,7 +308,7 @@ int main()
             case 1:
             {
                 printf ("----------Cadastro de cliente----------\n");
-                cadastrarCliente(individuo[quantpessoa]);
+                cadastrarCliente(individuo);
                 quantpessoa++;
                 menu = 0;
                 break;
@@ -278,7 +316,7 @@ int main()
             case 2: 
             {
                 printf ("-------Cadastro de animal de estimação-------\n");
-                cadastrarAnimal (animal[quantanimal]);
+                cadastrarAnimal (animal);
                 quantanimal++;
                 menu = 0;
                 break;
@@ -313,3 +351,7 @@ int main()
             }
         }
     }while(menu == 0);
+    return 0;
+}
+
+
