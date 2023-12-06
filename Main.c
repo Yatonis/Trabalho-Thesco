@@ -2,9 +2,10 @@
 #include <string.h>
 #include <stdlib.h>
 //Variaveis gerais
-int i = 0 , aux = 0, i2 = 0, totalagressivo = 3,  tamanhonomeanimal, tamanhonome, tamanhotelefone ,listarespecie, incremental = 0;
+int i = 0 , aux = 0, i2 = 0, totalagressivo = 3,  tamanhonomeanimal, tamanhonome, tamanhotelefone ,listarespecie, incremental = 2;
 int temp2, temp3 ,tempdia, tempmes, tempano;
-int menu = 0, quantpessoa = 3, quantanimal = 5, petsporcliente = 0;
+int menu = 0, quantpessoa = 3, quantanimal = 5, petsporcliente = 0, quantbanho = 0, quanttosa = 0, quantvacina = 2;
+float valorpagar = 0;
 char temp[50], continuar[20] , nomepet[50], nomecliente[50];
 //Structs
 struct Data{
@@ -29,7 +30,7 @@ struct Serviço{
     struct Data dataserviço;
     struct Animal pet;
     int tipodeserviço;
-    char pagamento;
+    char pagamento[4];
 };
 
 //Declaração das structs
@@ -75,6 +76,32 @@ void clientesjaCadastrados(void){
     strcpy(animal[2].agressivo , "S\0");
     strcpy(animal[3].agressivo , "S\0");
     strcpy(animal[4].agressivo , "N\0");
+    strcpy(serviço[0].pet.nomeanimal, animal[0].nomeanimal);
+    strcpy (serviço[0].pet.dono.nome, animal[0].dono.nome);
+    strcpy (serviço[0].pet.dono.telefone, animal[0].dono.telefone);
+    serviço[0].pet.especie = animal[0].especie;
+    serviço[0].pet.dataanimal.dia = animal[0].dataanimal.dia;
+    serviço[0].pet.dataanimal.mes = animal[0].dataanimal.mes;
+    serviço[0].pet.dataanimal.ano = animal[0].dataanimal.ano;
+    strcpy (serviço[0].pet.agressivo, animal[0].agressivo);
+    serviço[0].dataserviço.dia = 10;
+    serviço[0].dataserviço.mes = 12;
+    serviço[0].dataserviço.ano = 2018;
+    serviço[0].tipodeserviço = 3;
+    strcpy (serviço[0].pagamento , "S\0");
+    strcpy(serviço[1].pet.nomeanimal, animal[1].nomeanimal);
+    strcpy (serviço[1].pet.dono.nome, animal[1].dono.nome);
+    strcpy (serviço[1].pet.dono.telefone, animal[1].dono.telefone);
+    serviço[1].pet.especie = animal[1].especie;
+    serviço[1].pet.dataanimal.dia = animal[1].dataanimal.dia;
+    serviço[1].pet.dataanimal.mes = animal[1].dataanimal.mes;
+    serviço[1].pet.dataanimal.ano = animal[1].dataanimal.ano;
+    strcpy (serviço[1].pet.agressivo, animal[1].agressivo);
+    serviço[1].dataserviço.dia = 10;
+    serviço[1].dataserviço.mes = 12;
+    serviço[1].dataserviço.ano = 2018;
+    serviço[1].tipodeserviço = 3;
+    strcpy (serviço[1].pagamento , "N\0");
 }
 
 //Validação de nome
@@ -255,7 +282,7 @@ void cadastrarAnimal (struct Animal animal[quantanimal]){
     }
 }
 
-//Função para procurar o animal de estimação
+//Função para procurar por nome de animal de estimação
 void buscarPet(void){
     do{
         printf ("\nDigite o nome do animal de estimação: \n");
@@ -296,7 +323,7 @@ void buscarPet(void){
     }while(continuar[0] != '0');
 }
 
-//Função para buscar cliente
+//Função para buscar por nome de cliente
 void buscarCliente(void){
     do{
         printf ("\nDigite o nome do cliente: \n");
@@ -624,10 +651,22 @@ void Aniversario (int tempdia, int tempmes){
 void serviçosPetshop(void){
     do{
     scanf("%d", &serviço[incremental].tipodeserviço);
-    if (serviço[incremental].tipodeserviço != 1 || serviço[incremental].tipodeserviço != 2 ||serviço[incremental].tipodeserviço != 3){
+    if (serviço[incremental].tipodeserviço == 1 || serviço[incremental].tipodeserviço == 2 ||serviço[incremental].tipodeserviço == 3){
+        break;
+    }
+    else{
         printf("\nVocê digitou um serviço que não existe. Digite: 1 - Banho | 2 - Tosa | 3 - Vacina\n");
     }
-    }while(serviço[incremental].tipodeserviço != 1 || serviço[incremental].tipodeserviço != 2 ||serviço[incremental].tipodeserviço != 3 );
+    }while(1);
+    if (serviço[incremental].tipodeserviço == 1){
+        quantbanho = quantbanho + 1;
+    }
+    if (serviço[incremental].tipodeserviço == 2){
+        quanttosa = quantbanho + 1;
+    }
+    if (serviço[incremental].tipodeserviço == 3){
+        quantvacina = quantbanho + 1;
+    }
     printf("Agora digite o nome do animal de estimação já cadastrado que receberá o serviço\n");
     setbuf(stdin,NULL);
     fgets (nomepet, 50, stdin);
@@ -666,8 +705,69 @@ void serviçosPetshop(void){
             strcpy (serviço[incremental].pet.agressivo, animal[i].agressivo);
         }
     }
-    serviço[incremental].dataserviço;
-    
+    serviço[incremental].dataserviço.dia = 6;
+    serviço[incremental].dataserviço.mes = 12;
+    serviço[incremental].dataserviço.ano = 2023;
+    printf("\nValor já está pago?\nDigite: 'S' para Sim ou 'N' para Não\n");
+    for (;1;){
+        setbuf(stdin , NULL);
+        fgets(serviço[incremental].pagamento, 3 , stdin);
+        serviço[incremental].pagamento[strlen(serviço[incremental].pagamento) - 1] = '\0';
+        setbuf(stdin , NULL);
+        if (serviço[incremental].pagamento[0] == 'S' || serviço[incremental].pagamento[0] == 's' ){
+            break;
+        }
+        if ( serviço[incremental].pagamento[0] == 'N' || serviço[incremental].pagamento[0] == 'n' ){
+            break;
+        }
+        printf ("\nVocê digitou um caracter não correspondente. Digite novamente: 'S' para Sim ou 'N' para Não\n");
+    }
+    serviço[incremental].identificador = incremental;
+    incremental = incremental + 1;
+}
+
+//Função que mostra os valores pendentes
+void valoresPendentes (void){
+    printf("Digite: 1 - Para listar cachorros | 2 - Para listar gatos | 3 - Para listar pássaros | 4 - Para listar outros animais\n");
+    scanf ("%d",&listarespecie);
+    for(i = 0; i < 100; i++){
+        for(i2 = 0; i2 < 100; i2++){
+            if (strcmp (serviço[i2].pagamento, "N\0")){
+                if (serviço[i2].tipodeserviço == 1){
+                    valorpagar = valorpagar + 40;
+                }
+                if (serviço[i2].tipodeserviço == 2){
+                    valorpagar = valorpagar + 65;
+                }
+                if (serviço[i2].tipodeserviço == 3){
+                    valorpagar = valorpagar + 120;
+                }
+            }
+        }
+        if (listarespecie == serviço[i].pet.especie){
+            if (strcmp (serviço[i].pagamento, "N\0") == 0){
+                printf("Nome do pet: %s\nValor a pagar: %.2f\n",serviço[i].pet.nomeanimal, valorpagar);
+                printf("Pagar o valor pendente?\n");
+                printf("Digite: 'S' para Sim ou 'N' para Não\n");
+                for (;1;){
+                    setbuf(stdin , NULL);
+                    fgets(serviço[incremental].pagamento, 3 , stdin);
+                    serviço[incremental].pagamento[strlen(serviço[incremental].pagamento) - 1] = '\0';
+                    setbuf(stdin , NULL);
+                    if (serviço[incremental].pagamento[0] == 'S' || serviço[incremental].pagamento[0] == 's' ){
+                        strcpy (serviço[i].pagamento, "S\0");
+                        printf("\nPago com sucesso\n");
+                        break;
+                    }
+                    if ( serviço[incremental].pagamento[0] == 'N' || serviço[incremental].pagamento[0] == 'n' ){
+                        break;
+                    }
+                    printf ("\nVocê digitou um caracter não correspondente. Digite novamente: 'S' para Sim ou 'N' para Não\n");
+                }
+            }
+        }
+        valorpagar = 0;
+    }
 }
 
 int main()
@@ -685,9 +785,11 @@ int main()
             printf ("7: Quantidade de animais agressivos\n");
             printf ("8: Promoção de aniversário\n");
             printf ("9: Serviços do petshop\n");
+            printf ("10: Serviço mais utilizado\n");
+            printf ("11: Valores pendentes\n");
             printf ("Escolha uma opcao: \n");
             scanf ("%d", &menu);
-        }while(menu < 1 || menu > 9);
+        }while(menu < 1 );
         switch(menu) {
             case 1:
             {
@@ -770,9 +872,37 @@ int main()
                 printf("|       2      |        Tosa        |    R$ 65,00   |\n");
                 printf("|       3      |       Vacina       |    R$ 120,00  |\n\n");
                 printf("Para escolher o serviço, digite o tipo dele\n");
+                serviçosPetshop();
+                menu = 0;
+                break;
                 
+            }
+            case 10:
+            {
+                printf("---------------------Serviço mais utilizado---------------------\n");
+                printf("O serviço mais utilizado em nosso petshop é:\n");
+                if (quantbanho > quanttosa && quantbanho > quantvacina){
+                    printf("O banho\n");
+                }
+                if (quanttosa > quantbanho && quanttosa > quantvacina){
+                    printf("A tosa\n");
+                }
+                if (quantvacina > quantbanho && quantvacina > quanttosa){
+                    printf("A vacina\n");
+                }
+                menu = 0;
+                break;
+            }
+            case 11:
+            {
+                printf("---------------------Valores pendentes---------------------\n");
+                printf("Irei mostrar os valores pendentes separados por espécie de animal e em seguida você pode escolher se quer pagar este valor pendente ou não\n");
+                valoresPendentes();
+                menu = 0;
+                break;
             }
         }
     }while(menu == 0);
     return 0;
 }
+
